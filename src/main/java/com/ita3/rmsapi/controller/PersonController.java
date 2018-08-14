@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class UserController {
+public class PersonController {
     private final PersonRepository personRepository;
-    private static final Logger log = LoggerFactory.getLogger(UserController.class);
+    private static final Logger log = LoggerFactory.getLogger(PersonController.class);
 
     @Autowired
-    public UserController(PersonRepository personRepository) {
+    public PersonController(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
 
@@ -25,10 +25,18 @@ public class UserController {
         return person;
     }
 
+    @GetMapping(value = "/getPersonByLoginDetails")
+    @CrossOrigin("*")
+    public Person getPersonByUsername(@RequestParam(value="username", defaultValue="ADMIN") String username,
+                                      @RequestParam(value="password", defaultValue="ADMIN123") String password){
+        Person person = personRepository.findByUsernameAndPassword(username, password);
+        log.info(person.toString());
+        return person;
+    }
+
     @GetMapping(value = "/getAllPersons")
     @CrossOrigin("*")
     public Iterable<Person> getAllPersons(){
-        Iterable<Person> persons = personRepository.findAll();
-        return persons;
+        return personRepository.findAll();
     }
 }

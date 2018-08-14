@@ -11,17 +11,6 @@ public class Person {
     private String firstName;
     private String lastName;
 
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
-    }
-
     protected Person() {
     }
 
